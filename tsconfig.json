@@ -1,14 +1,20 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
-    "noImplicitAny": true,
-    "module": "ESNext",
-    "target": "es5",
-    "jsx": "react-jsx",
-    "allowJs": true,
+    "target": "es6",
+    "module": "es6",
     "moduleResolution": "node",
-    "esModuleInterop": true,
+    "outDir": "./dist/",
     "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "allowJs": true,
+    "jsx": "react-jsx",
+    "alwaysStrict": true,
+    "noImplicitAny": false,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": false,
+    "strictFunctionTypes": true,
+    "noImplicitThis": true,
+    "strictBindCallApply": true,
     "baseUrl": ".",
     "paths": {
       "*": ["./src/*"]

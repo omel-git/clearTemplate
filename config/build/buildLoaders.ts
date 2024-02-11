@@ -1,20 +1,16 @@
-import webpack from 'webpack';
+import type webpack from 'webpack';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import { BuildOptions } from './types/config';
+import { type BuildOptions } from './types/config';
 
 export function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRule[] {
-  const fileLoader = {
+  const resourceAssets = {
     test: /\.(png|jpe?g|gif|woff|woff2)$/i,
-    use: [
-      {
-        loader: 'file-loader',
-      },
-    ],
+    type: 'asset/resource',
   };
 
-  const svgLoader = {
-    test: /\.svg$/,
-    use: ['@svgr/webpack'],
+  const inliningAssets = {
+    test: /\.svg/,
+    type: 'asset/inline',
   };
 
   const babelLoader = {
@@ -37,9 +33,7 @@ export function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRule[] {
         options: {
           modules: {
             auto: (resPath: string) => Boolean(resPath.includes('.module.')),
-            localIdentName: isDev
-              ? '[path][name]__[local]--[hash:base64:5]'
-              : '[hash:base64:8]',
+            localIdentName: isDev ? '[path][name]__[local]--[hash:base64:5]' : '[hash:base64:8]',
           },
         },
       },
@@ -53,11 +47,5 @@ export function buildLoaders({ isDev }: BuildOptions): webpack.RuleSetRule[] {
     exclude: /node_modules/,
   };
 
-  return [
-    fileLoader,
-    svgLoader,
-    babelLoader,
-    typescriptLoader,
-    cssLoader,
-  ];
+  return [resourceAssets, inliningAssets, babelLoader, typescriptLoader, cssLoader];
 }
